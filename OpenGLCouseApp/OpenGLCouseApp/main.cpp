@@ -48,7 +48,7 @@ int main()
 	// Allow modern extension features
 	glewExperimental = GL_TRUE; // GLEW의 확장 기능을 초기화할 수 있음
 
-	if (!glewInit())
+	if (glewInit() != GLEW_OK)
 	{
 		cout << "GLEW initialisation failed" << endl;
 		glfwDestroyWindow(mainWindow);
@@ -68,6 +68,9 @@ int main()
 		// Clear Window 
 		glClearColor(1.0f, 0.0f, 0.0f, 1.0f); // 특정 색(빨강)으로 지우기
 		glClear(GL_COLOR_BUFFER_BIT); // 색 버퍼를 특정 색(빨강)으로 지우기
+
+		// 화면에 보여지는 버퍼와 렌더링에 사용되는 버퍼를 교체
+		glfwSwapBuffers(mainWindow); 
 
 	}
 
