@@ -22,7 +22,7 @@ int main()
 	//윈도우 속성 셋업
 	// OpenGL Version
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // Version  3.3
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	// Core profile = No Backwards Compatibility (백워드 호환 불가능)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	// Allow forward compatibility (포워드 호환 가능)
@@ -66,7 +66,7 @@ int main()
 		glfwPollEvents(); // 클릭, 화면 이동, 리사이즈 등, 등 모든 이벤트를 감지
 
 		// Clear Window 
-		glClearColor(1.0f, 0.0f, 0.0f, 1.0f); // 특정 색(빨강)으로 지우기
+		glClearColor(0.0f, 1.0f, 0.0f, 1.0f); // 특정 색(빨강)으로 지우기
 		glClear(GL_COLOR_BUFFER_BIT); // 색 버퍼를 특정 색(빨강)으로 지우기
 
 		// 화면에 보여지는 버퍼와 렌더링에 사용되는 버퍼를 교체
