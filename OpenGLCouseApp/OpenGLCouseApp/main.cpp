@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string.h>
+#include <stdlib.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -10,19 +11,25 @@ using namespace std;
 // Ã¢ Å©±â
 const GLint WIDTH = 800, HEIGHT = 600;
 
-GLuint VAO, VBO, shader;
+GLuint VAO, VBO, shader, uniformXMove;
 
+bool direction = true;
+float triOffset = 0.0f;
+float triMaxOffset = 0.7f;
+float triIncrement = 0.0005f;
 
 // Vertex Shader
-static const char* vShader = "									\n\
-#version 330													\n\
-																\n\
-layout(location = 0) in vec3 pos;								\n\
-																\n\
-void main()														\n\
-{																\n\
-	gl_Position = vec4(0.4 * pos.x, 0.4 * pos.y, pos.z, 1.0);	\n\
-}																\n\
+static const char* vShader = "											\n\
+#version 330															\n\
+																		\n\
+layout(location = 0) in vec3 pos;										\n\
+																		\n\
+uniform float xMove;													\n\
+																		\n\
+void main()																\n\
+{																		\n\
+	gl_Position = vec4(0.4 * pos.x + xMove, 0.4 * pos.y, pos.z, 1.0);	\n\
+}																		\n\
 ";
 
 // Fragmen shader
