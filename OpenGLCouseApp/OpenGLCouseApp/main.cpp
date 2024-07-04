@@ -14,7 +14,7 @@ const GLint WIDTH = 800, HEIGHT = 600;
 GLuint VAO, VBO, shader, uniformXMove;
 
 bool direction = true;
-float triOffset = 0.0f;
+float triOffset = 0.0f; 
 float triMaxOffset = 0.7f;
 float triIncrement = 0.0005f;
 
@@ -125,6 +125,8 @@ void CompileShaders() {
 		cout << "Error validating program : " << eLog << endl;
 		return;
 	}
+
+	uniformXMove = glGetUniformLocation(shader, "xMove");
 }
 
 int main()
@@ -186,12 +188,27 @@ int main()
 		// Get + Handler user input events 
 		glfwPollEvents(); // 클릭, 화면 이동, 리사이즈 등, 등 모든 이벤트를 감지
 
+		if (direction) 
+		{
+			triOffset += triIncrement;
+		}
+		else 
+		{
+			triOffset -= triIncrement;
+		}
+
+		if (abs(triOffset) >= triMaxOffset) {
+			direction = !direction;
+		}
+
 		// Clear Window 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // 특정 색(빨강)으로 지우기
 		glClear(GL_COLOR_BUFFER_BIT); // 색 버퍼를 특정 색(빨강)으로 지우기
 
 		glUseProgram(shader); // 생성한 셰이더 ID를 잡음 (셰이더가 여러개 일 때 구별해서 잡는데 사용)
 		// 여기에 작성되는 것은 위에서 잡은 셰이더 프로그램으로 그려짐
+
+		glUniform1f(uniformXMove, triOffset);
 
 		glBindVertexArray(VAO); //VAO 바인드
 		glDrawArrays(GL_TRIANGLES, 0, 3); // 0~3번째 점까지 사용해서 삼각형 그리기
